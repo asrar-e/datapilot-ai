@@ -1,0 +1,15 @@
+
+fastapi
+uvicorn[standard]
+python-multipart
+pandas
+openpyxl
+sqlalchemy
+psycopg[binary]
+python-dotenv
+pydantic-settings
+google-genai
+sqlglot
+plotly
+pytest
+httpx
