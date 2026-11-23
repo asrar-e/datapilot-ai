@@ -1,19 +1,32 @@
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.query import router as query_router
 from app.api.upload import router as upload_router
 from app.core.config import APP_NAME
-from app.database.connection import check_database_connection
+from app.database.connection import (
+    check_database_connection,
+    initialize_database,
+)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Initialize database before accepting requests.
+    initialize_database()
+    yield
+
 
 app = FastAPI(
     title=APP_NAME,
     description="AI-powered natural language data analytics platform",
     version="0.1.0",
+    lifespan=lifespan,
 )
 
-# Allow the local React development server to call this API.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

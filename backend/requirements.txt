@@ -13,3 +13,5 @@ sqlglot
 plotly
 pytest
 httpx
+
+openai
